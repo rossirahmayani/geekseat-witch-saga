@@ -22,6 +22,5 @@ API Documentation:
             "yearOfDeath": 17
         }
     ]
-    
   - Response:
     4.50
