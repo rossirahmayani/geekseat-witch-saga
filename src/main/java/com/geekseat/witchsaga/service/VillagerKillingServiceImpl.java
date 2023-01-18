@@ -14,18 +14,27 @@ public class VillagerKillingServiceImpl implements VillageKillingService{
 
     @Override
     public BigDecimal getAverageKillCount (List<Villager> villagers){
-        if (validateAge(villagers).equals(Boolean.FALSE)){
+        try {
+            if (validate(villagers).equals(Boolean.FALSE)) {
+                return BigDecimal.valueOf(-1);
+            }
+            BigDecimal totalVillager = BigDecimal.valueOf(villagers.size());
+            BigDecimal totalKilled = getTotalKilled(villagers);
+
+            return totalKilled.divide(totalVillager, 2, RoundingMode.HALF_UP);
+        }
+        catch (Exception e){
+            log.warn("Error");
             return BigDecimal.valueOf(-1);
         }
-        BigDecimal totalVillager = BigDecimal.valueOf(villagers.size());
-        BigDecimal totalKilled = getTotalKilled(villagers);
-
-        return totalKilled.divide(totalVillager, 2, RoundingMode.HALF_UP);
     }
 
 
-    private Boolean validateAge(List<Villager> villagers){
+    private Boolean validate(List<Villager> villagers){
         if (villagers.stream().anyMatch(villager -> villager.getAgeOfDeath().compareTo(0) < 0)){
+            return Boolean.FALSE;
+        }
+        if (villagers.stream().anyMatch(villager -> villager.getYearOfDeath().compareTo(0) < 0)){
             return Boolean.FALSE;
         }
         if (villagers.stream().anyMatch(villager -> (villager.getYearOfDeath() - villager.getAgeOfDeath()) < 0)){

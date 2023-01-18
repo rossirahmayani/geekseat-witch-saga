@@ -36,8 +36,15 @@ class VillagerKillingServiceTest {
     }
 
     @Test
-    void getAverageKillCount_givenNegativeAge(){
+    void getAverageKillCount_givenNegativeAgeOfDeath(){
         villagers.add(new Villager(-2, 12));
+        BigDecimal average = villagerKillingService.getAverageKillCount(villagers);
+        Assertions.assertEquals(BigDecimal.valueOf(-1), average);
+    }
+
+    @Test
+    void getAverageKillCount_givenNegativeYearOfDeath(){
+        villagers.add(new Villager(12, -2));
         BigDecimal average = villagerKillingService.getAverageKillCount(villagers);
         Assertions.assertEquals(BigDecimal.valueOf(-1), average);
     }
@@ -49,6 +56,13 @@ class VillagerKillingServiceTest {
         oldVillager.setYearOfDeath(12);
 
         villagers.add(oldVillager);
+        BigDecimal average = villagerKillingService.getAverageKillCount(villagers);
+        Assertions.assertEquals(BigDecimal.valueOf(-1), average);
+    }
+
+    @Test
+    void getAverageKillCount_exception(){
+        villagers = null;
         BigDecimal average = villagerKillingService.getAverageKillCount(villagers);
         Assertions.assertEquals(BigDecimal.valueOf(-1), average);
     }
