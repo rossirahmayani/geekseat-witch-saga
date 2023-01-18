@@ -5,11 +5,10 @@ Then I decided to create a service and unit test to get the average number. I'm 
 
 API Documentation:
 - URL: POST localhost:8080/witch-saga/average-killing
-- Request body: in JSON string list of object
-  Parameter:
+- Request body in JSON string list of object with parameters
   - ageOfDeath  : Integer type
   - yearOFDeath : Integer type
-- Response body: BigDecimal value type
+- Response body in BigDecimal value type
 - Example:
   - Request:
     [
