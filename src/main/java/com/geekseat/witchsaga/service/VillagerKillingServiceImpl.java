@@ -10,8 +10,9 @@ import java.util.List;
 
 @Component
 @Log4j2
-public class VillagerKillingService {
+public class VillagerKillingServiceImpl implements VillageKillingService{
 
+    @Override
     public BigDecimal getAverageKillCount (List<Villager> villagers){
         if (validateAge(villagers).equals(Boolean.FALSE)){
             return BigDecimal.valueOf(-1);
