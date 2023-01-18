@@ -2,13 +2,13 @@ package com.geekseat.witchsaga.service;
 
 import com.geekseat.witchsaga.dto.Villager;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-@Service
+@Component
 @Log4j2
 public class VillagerKillingService {
 
@@ -16,7 +16,6 @@ public class VillagerKillingService {
         if (validateAge(villagers).equals(Boolean.FALSE)){
             return BigDecimal.valueOf(-1);
         }
-
         BigDecimal totalVillager = BigDecimal.valueOf(villagers.size());
         BigDecimal totalKilled = getTotalKilled(villagers);
 
@@ -24,16 +23,13 @@ public class VillagerKillingService {
     }
 
 
-
     private Boolean validateAge(List<Villager> villagers){
         if (villagers.stream().anyMatch(villager -> villager.getAgeOfDeath().compareTo(0) < 0)){
             return Boolean.FALSE;
         }
-
         if (villagers.stream().anyMatch(villager -> (villager.getYearOfDeath() - villager.getAgeOfDeath()) < 0)){
             return Boolean.FALSE;
         }
-
         return Boolean.TRUE;
     }
 
@@ -50,7 +46,7 @@ public class VillagerKillingService {
         return BigDecimal.valueOf(totalKilled);
     }
 
-    public Integer countTotalKillInYear (Integer witchYear){
+    private Integer countTotalKillInYear(Integer witchYear){
         Integer killCount = 0;
 
         int a = 1;

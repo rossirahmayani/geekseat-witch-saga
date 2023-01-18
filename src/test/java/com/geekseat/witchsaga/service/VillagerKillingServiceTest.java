@@ -46,7 +46,11 @@ class VillagerKillingServiceTest {
 
     @Test
     void getAverageKillCount_givenBornBeforeWitch(){
-        villagers.add(new Villager(30, 12));
+        Villager oldVillager = new Villager();
+        oldVillager.setAgeOfDeath(30);
+        oldVillager.setYearOfDeath(12);
+
+        villagers.add(oldVillager);
         BigDecimal average = villagerKillingService.getAverageKillCount(villagers);
         Assertions.assertEquals(BigDecimal.valueOf(-1), average);
     }
